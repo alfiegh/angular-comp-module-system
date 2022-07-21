@@ -1,10 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'collections',
+    loadChildren: () =>
+      import('./collection/collection.module').then((m) => m.CollectionModule),
+  },
+  {
+    path: 'elements',
+    loadChildren: () =>
+      import('./element/element.module').then((m) => m.ElementModule),
+  },
+  {
+    path: 'views',
+    loadChildren: () =>
+      import('./views/views.module').then((m) => m.ViewsModule),
+  },
+  {
+    path: 'mods',
+    loadChildren: () => import('./mods/mods.module').then((m) => m.ModsModule),
+  },
+
+  { path: '', component: HomeComponent },
+  { path: '**', component: NotFoundComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
